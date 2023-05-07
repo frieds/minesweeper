@@ -97,6 +97,10 @@ class Grid:
     def is_cell_opened(self, row_index: int, column_index: int) -> bool:
         return self.cells[row_index][column_index].is_open
 
+    def has_mine_at(self, coordinate: Coordinate) -> bool:
+        return self.cells[coordinate.row][coordinate.column].has_mine
+
+
 
 class Minesweeper:
     def __init__(self, width, height):
@@ -135,8 +139,8 @@ class Minesweeper:
             else:
                 return Coordinate(row_index, column_index)
 
-    def _has_guessed_mine(self, user_coordinate_guess):
-        if self.grid.cells[user_coordinate_guess.row][user_coordinate_guess.column].has_mine:
+    def _has_guessed_mine(self, user_coordinate_guess: Coordinate) -> bool:
+        if self.grid.has_mine_at(user_coordinate_guess):
             print("You guessed a mine")
             return True
         else:
